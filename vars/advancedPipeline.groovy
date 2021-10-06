@@ -27,13 +27,7 @@ pipeline {
         }        
         stage('Docker run') { 
             steps { 
-              withCredentials([sshUserPrivateKey(pipelineParams.credentialsId , pipelineParams.keyFileVariable, pipelineParams.usernameVariable)]) {
-                  script {
-                      remote.user = USER
-                      remote.identityFile = PEM
-                      sshCommand remote: remote, command: "sudo docker run -d $pipelineParams.registry:$BUILD_NUMBER "
-                  }
-              }
+                sh "docker run -d $pipelineParams.registry:$BUILD_NUMBER" 
             }
         } 
        
